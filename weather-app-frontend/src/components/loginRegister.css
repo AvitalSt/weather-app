@@ -1,0 +1,50 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(to bottom right, #83a4d4, #b6fbff); /* תבנית רקע דומה */
+}
+
+.auth-box {
+    background-color: #f0f8ff; /* צבע רקע תואם */
+    padding: 20px;
+    border-radius: 15px; /* רדיוס זהה */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* אותו אפקט צל */
+    max-width: 400px;
+    width: 100%;
+}
+
+.auth-title {
+    text-align: center;
+    font-size: 24px; /* גודל כותרת תואם */
+    color: #333; /* צבע כותרת תואם */
+    margin-bottom: 20px;
+}
+
+.auth-input {
+    width: 100%;
+    margin-bottom: 20px; /* התאמה לסגנון של Weather */
+}
+
+.auth-button {
+    width: 100%; /* כפתור מלא ברוחב */
+    background-color: #2196f3; /* צבע הכפתור תואם */
+    color: white;
+}
+
+.auth-button:hover {
+    background-color: #1976d2; /* צבע hover יותר כהה */
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px; /* התאמה לגודל הטקסט של ההודעה */
+}
+
+.auth-button.outlined {
+    color: #2196f3;
+    border: 2px solid #2196f3;
+    width: 100%;
+}
