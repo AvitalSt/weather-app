@@ -18,15 +18,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Change directory to the backend folder
-      run: cd weather-app-backend
-
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - run: npm ci
+    - name: Install dependencies (backend)
+      run: |
+        cd weather-app-backend
+        npm ci
 
-    - run: npm test
+    - name: Run tests (backend)
+      run: |
+        cd weather-app-backend
+        npm test
