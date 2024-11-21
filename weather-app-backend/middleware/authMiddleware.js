@@ -10,7 +10,7 @@ async function authenticateToken(req, res, next) {
         req.user = user;
         next();
     } catch (err) {
-        return res.status(403).send({ message: 'Invalid or expired token' }); // עדכון הודעה וסטטוס
+        return res.status(403).send({ message: 'Invalid or expired token' });   
     }
 }
 

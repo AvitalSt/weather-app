@@ -4,7 +4,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { login } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
-import './loginRegister.css'; 
+import HomeButton from './HomeButton'
+import './loginRegister.css';
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -16,17 +17,17 @@ export default function Login() {
         e.preventDefault();
         setError(null);
         try {
-            const data = await login(username, password); 
-            localStorage.setItem('token', data.token); 
+            const data = await login(username, password);
+            localStorage.setItem('token', data.token);
             alert('Login successful!');
             navigate('/')
-          } catch (error) {
+        } catch (error) {
             setError('The username or password you entered is not correct');
-          }
+        }
     };
 
     const handleRegister = () => {
-        navigate('/register'); 
+        navigate('/register');
     };
 
     return (
@@ -63,6 +64,7 @@ export default function Login() {
                 <Button variant="contained" fullWidth className="auth-button" onClick={handleSubmit}>Login</Button>
                 <Button variant="outlined" fullWidth className="auth-button" onClick={handleRegister}>Register</Button>
             </Box>
+            <HomeButton />
         </div>
     )
 }

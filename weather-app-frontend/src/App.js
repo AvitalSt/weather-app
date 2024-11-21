@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/login';
 import Register from './components/register';
 import Weather from './components/weather'
+import FavoriteCities from './components/FavoriteCities';
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Weather />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} /> 
+        <Route path="/register" element={<Register />} />
+        <Route path="/favorites" element={<FavoriteCities />} />
       </Routes>
     </Router>
   );

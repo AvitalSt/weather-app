@@ -4,7 +4,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { register } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
-import './loginRegister.css'; 
+import HomeButton from './HomeButton'
+import './loginRegister.css';
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -58,6 +59,7 @@ export default function Register() {
                 {error && <div className="error-message">{error}</div>}
                 <Button variant="contained" fullWidth className="auth-button" onClick={handleSubmit}>Register</Button>
             </Box>
+            <HomeButton />
         </div>
     )
 }
