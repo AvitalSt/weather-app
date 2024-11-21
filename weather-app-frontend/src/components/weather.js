@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { getWeatherByCity ,addCityToFavorites} from '../services/weatherService';
+import { getWeatherByCity, addCityToFavorites, getAllFavoriteCities } from '../services/weatherService';
 import { useNavigate } from 'react-router-dom';
-import './weather.css'; 
-
+import './weather.css';
 
 export default function Weather() {
     const [city, setCity] = useState('');
@@ -26,7 +25,7 @@ export default function Weather() {
 
     const fetchAddToFavorite = async (city) => {
         const token = localStorage.getItem('token');
-        if (token){
+        if (token) {
             try {
                 setError(null);
                 const data = await addCityToFavorites(city);
@@ -38,12 +37,22 @@ export default function Weather() {
         else
             navigate('/login');
     }
+
+    const handleShowFavorites = () => {
+        if (isLoggedIn()) {
+            navigate('/favorites');    
+        } else {
+            navigate('/login'); 
+        }
+    };
     
+    const isLoggedIn = () => {
+        return localStorage.getItem('token') !== null;
+    }
 
     useEffect(() => {
         fetchWeather('ירושלים');
     }, []);
-
 
     return (
         <div className="weather-container">
@@ -71,6 +80,13 @@ export default function Weather() {
                     onClick={() => fetchAddToFavorite(city)}
                 >
                     Add to favorite
+                </Button>
+                <Button
+                    className="weather-button"
+                    variant="contained"
+                    onClick={handleShowFavorites} 
+                >
+                    Show Favorite Cities
                 </Button>
                 {weather && (
                     <div className="weather-info">
