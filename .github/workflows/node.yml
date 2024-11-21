@@ -13,29 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # שלב 1: הורדת קוד מהמאגר
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # שלב 2: התקנת Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 20 # הגרסה שאתה משתמש בפרויקט
+        node-version: 20     
 
-    # שלב 3: התקנת התלויות
     - name: Install dependencies (backend)
       run: cd weather-app-backend && npm install
 
     - name: Install dependencies (frontend)
       run: cd weather-app-frontend && npm install
 
-    # שלב 4: הגדרת MongoDB ל-Unit Tests
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.6.0
       with:
-        mongodb-version: 8 # עדכן לפי גרסת ה-MongoDB הרצויה
+        mongodb-version: 8     
 
-    # שלב 5: הרצת בדיקות
     - name: Run tests
       run: cd weather-app-backend && npm test
