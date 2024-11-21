@@ -24,8 +24,11 @@ jobs:
         node-version: 20 # הגרסה שאתה משתמש בפרויקט
 
     # שלב 3: התקנת התלויות
-    - name: Install dependencies
+    - name: Install dependencies (backend)
       run: cd weather-app-backend && npm install
+
+    - name: Install dependencies (frontend)
+      run: cd weather-app-frontend && npm install
 
     # שלב 4: הגדרת MongoDB ל-Unit Tests
     - name: Start MongoDB
