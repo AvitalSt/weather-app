@@ -9,6 +9,7 @@ Weather App is a full-stack application designed to provide users with real-time
 - Search Functionality: Allows users to search weather data by city.  
 - Automated Testing: Includes unit tests for the backend, ensuring application reliability.  
 - CI/CD: Integrated with GitHub Actions for Continuous Integration and Continuous Deployment.
+- Token-based Authentication: User authentication is handled using JWT tokens. Upon successful login, the token is stored in localStorage for future authentication with protected routes.
 
 ## Technologies Used
 - Frontend: React (v18.3.1), CSS, JavaScript  

@@ -15,7 +15,6 @@ export async function addCityToFavorites(city) {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
     };
-
     try {
         const response = await axios.post('http://localhost:3000/weather/add', { city }, { headers });
         return response.data;
