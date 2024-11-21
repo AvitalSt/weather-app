@@ -25,8 +25,7 @@ jobs:
 
     # שלב 3: התקנת התלויות
     - name: Install dependencies
-      run: cd weather-app-backend
-           npm install
+      run: cd weather-app-backend && npm install
 
     # שלב 4: הגדרת MongoDB ל-Unit Tests
     - name: Start MongoDB
