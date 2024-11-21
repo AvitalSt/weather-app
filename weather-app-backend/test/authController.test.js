@@ -1,10 +1,7 @@
-const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const apiKey =process.env.JWT_SECRET;
 const { login, registerUser } = require('../controllers/authController');
 
-jest.mock('axios');
 jest.mock('../models/user', () => ({
     findOne: jest.fn()
 }));
@@ -20,7 +17,6 @@ describe('login', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn() 
         };
-
         await login(req, res);
         expect(User.findOne).toHaveBeenCalledWith({ username: 'avi' });
         expect(res.status).toHaveBeenCalledWith(404);
