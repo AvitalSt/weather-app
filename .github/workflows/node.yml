@@ -34,7 +34,7 @@ jobs:
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.6.0
       with:
-        mongodb-version: 5.0 # עדכן לפי גרסת ה-MongoDB הרצויה
+        mongodb-version: 8 # עדכן לפי גרסת ה-MongoDB הרצויה
 
     # שלב 5: הרצת בדיקות
     - name: Run tests
