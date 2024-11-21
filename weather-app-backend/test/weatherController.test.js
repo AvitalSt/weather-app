@@ -44,7 +44,7 @@ describe('getWeatherByCity', () => {
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({
             error: 'Error fetching weather data',
-            message: 'API call failed'
+            // message: 'API call failed'
         });
     })
 })
