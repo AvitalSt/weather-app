@@ -35,4 +35,4 @@ jobs:
 
     # שלב 5: הרצת בדיקות
     - name: Run tests
-      run: npm test
+      run: cd weather-app-backend && npm test
