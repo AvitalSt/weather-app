@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { getAllFavoriteCities } from '../services/weatherService';
+import { getAllFavoriteCities, getWeatherByCity  } from '../services/weatherService';
 import { useNavigate } from 'react-router-dom';
 import './weather.css';
 import HomeButton from './HomeButton'
 
 export default function FavoriteCities() {
     const [favoriteCities, setFavoriteCities] = useState([]);
+    const [weatherData, setWeatherData] = useState([]);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -20,11 +21,26 @@ export default function FavoriteCities() {
                 setError(null);
                 const data = await getAllFavoriteCities();
                 setFavoriteCities(data.favoriteCities);
+                data.favoriteCities.forEach((city) => {
+                    fetchWeather(city);
+                });
             } catch (err) {
                 setError(err.message);
             }
         } else {
             navigate('/login');
+        }
+    };
+
+    const fetchWeather = async (city) => {
+        try {
+            const data = await getWeatherByCity(city);     
+            setWeatherData((prevData) => ({
+                ...prevData,
+                [city]: data,          
+            }));
+        } catch (err) {
+            console.error("Error fetching weather data:", err);
         }
     };
 
@@ -36,7 +52,14 @@ export default function FavoriteCities() {
                 {favoriteCities.length > 0 ? (
                     <ul className="favorite-cities-list">
                         {favoriteCities.map((city, index) => (
-                            <li key={index}>{city}</li>
+                            <li key={index}>
+                                {city}
+                                {weatherData[city] ? (
+                                    <span> - {weatherData[city].main.temp}°C - {weatherData[city].weather[0].description}</span>
+                                ) : (
+                                    <span> - Loading...</span>
+                                )}
+                            </li>
                         ))}
                     </ul>
                 ) : (
