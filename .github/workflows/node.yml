@@ -21,7 +21,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16 # הגרסה שאתה משתמש בפרויקט
+        node-version: 20 # הגרסה שאתה משתמש בפרויקט
 
     # שלב 3: התקנת התלויות
     - name: Install dependencies
