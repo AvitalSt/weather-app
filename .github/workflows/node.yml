@@ -12,6 +12,12 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    env:
+     DB_URI: ${{secrets.DB_URI}}
+     PORT: ${{ secrets.PORT }}
+     JWT_SECRET: ${{ secrets.JWT_SECRET }}
+     apiKey: ${{ secrets.apiKey }}
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
