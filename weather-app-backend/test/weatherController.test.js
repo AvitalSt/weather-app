@@ -1,7 +1,6 @@
 const axios = require('axios');
 const User = require('../models/user');
 const { getWeatherByCity, addFavoriteCity, getAllFavoriteCities } = require('../controllers/weatherController');
-const apiKey = process.env.JWT_SECRET;
 
 jest.mock('axios');
 
@@ -24,7 +23,7 @@ describe('getWeatherByCity', () => {
         };
         await getWeatherByCity(req, res);
         expect(axios.get).toHaveBeenCalledWith(
-            `http://api.openweathermap.org/data/2.5/weather?q=Tel Aviv&appid=${apiKey}&units=metric`
+            `http://api.openweathermap.org/data/2.5/weather?q=Tel Aviv&appid=${process.env.JWT_SECRET}&units=metric`
         );
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
