@@ -45,8 +45,8 @@ describe('getWeatherByCity', () => {
             error: 'Error fetching weather data',
             message: 'API call failed'
         });
-    })
-})
+    });
+});
 
 describe('addFavoriteCity', () => {
 
