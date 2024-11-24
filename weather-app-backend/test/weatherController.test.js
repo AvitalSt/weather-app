@@ -23,7 +23,7 @@ describe('getWeatherByCity', () => {
         };
         await getWeatherByCity(req, res);
         expect(axios.get).toHaveBeenCalledWith(
-            `http://api.openweathermap.org/data/2.5/weather?q=Tel Aviv&appid=${process.env.JWT_SECRET}&units=metric`
+            `http://api.openweathermap.org/data/2.5/weather?q=Tel Aviv&appid=${process.env.apiKey}&units=metric`
         );
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
