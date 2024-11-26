@@ -33,6 +33,12 @@ jobs:
     - name: Install dependencies (frontend)
       run: cd weather-app-frontend && npm install
 
+    - name: Start backend
+      run: cd weather-app-backend && PORT=3000 npm start &
+
+    - name: Start frontend
+      run: cd weather-app-frontend && PORT=3001 npm start &
+
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.6.0
       with:
