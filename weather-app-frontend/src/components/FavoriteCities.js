@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllFavoriteCities, getWeatherByCity  } from '../services/weatherService';
+import { getAllFavoriteCities, getWeatherByCity } from '../services/weatherService';
 import { useNavigate } from 'react-router-dom';
 import './weather.css';
 import HomeButton from './HomeButton'
@@ -25,6 +25,11 @@ export default function FavoriteCities() {
                     fetchWeather(city);
                 });
             } catch (err) {
+                console.log(err.message);
+                if (err.message === 'Invalid or expired token') {
+                    localStorage.removeItem('token');
+                    navigate('/login');
+                }
                 setError(err.message);
             }
         } else {
@@ -34,10 +39,10 @@ export default function FavoriteCities() {
 
     const fetchWeather = async (city) => {
         try {
-            const data = await getWeatherByCity(city);     
+            const data = await getWeatherByCity(city);
             setWeatherData((prevData) => ({
                 ...prevData,
-                [city]: data,          
+                [city]: data,
             }));
         } catch (err) {
             console.error("Error fetching weather data:", err);

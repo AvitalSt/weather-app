@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { getWeatherByCity, addCityToFavorites, getAllFavoriteCities } from '../services/weatherService';
+import { getWeatherByCity, addCityToFavorites } from '../services/weatherService';
 import { useNavigate } from 'react-router-dom';
 import './weather.css';
 
@@ -31,7 +31,14 @@ export default function Weather() {
                 const data = await addCityToFavorites(city);
                 alert(data.message)
             } catch (err) {
-                setError(err.message);
+                console.log(err.message);
+                if (err.message === 'Invalid or expired token') {
+                    localStorage.removeItem('token');
+                    navigate('/login');
+                }
+                else {
+                    setError(err.message);
+                }
             }
         }
         else
@@ -40,12 +47,12 @@ export default function Weather() {
 
     const handleShowFavorites = () => {
         if (isLoggedIn()) {
-            navigate('/favorites');    
+            navigate('/favorites');
         } else {
-            navigate('/login'); 
+            navigate('/login');
         }
     };
-    
+
     const isLoggedIn = () => {
         return localStorage.getItem('token') !== null;
     }
@@ -84,13 +91,13 @@ export default function Weather() {
                 <Button
                     className="weather-button"
                     variant="contained"
-                    onClick={handleShowFavorites} 
+                    onClick={handleShowFavorites}
                 >
                     Show Favorite Cities
                 </Button>
                 {weather && (
                     <div className="weather-info">
-                        <div>name: {weather.name}</div>
+                        <div>City: {weather.name}</div>
                         <div>Temperature: {weather.main.temp} °C</div>
                         <div>Description: {weather.weather[0].description}</div>
                     </div>
