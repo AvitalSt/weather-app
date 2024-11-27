@@ -28,6 +28,7 @@ export default function Weather() {
         if (token) {
             try {
                 setError(null);
+                await getWeatherByCity(city);
                 const data = await addCityToFavorites(city);
                 alert(data.message)
             } catch (err) {
@@ -35,6 +36,9 @@ export default function Weather() {
                 if (err.message === 'Invalid or expired token') {
                     localStorage.removeItem('token');
                     navigate('/login');
+                }
+                else if (err.message === 'City not found') {
+                    setError('The specified city does not exist');
                 }
                 else {
                     setError(err.message);
