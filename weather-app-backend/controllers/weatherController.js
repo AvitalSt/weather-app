@@ -21,10 +21,12 @@ async function addFavoriteCity(req, res) {
         const user = await User.findById(req.user.id);
         if (!user)
             return res.status(404).json({ message: 'User not found' });
-        if (user.favoriteCities.includes(city))
+        const favoriteCitiesSet = new Set(user.favoriteCities);
+        if (favoriteCitiesSet.has(city)) {
             return res.status(400).json({ message: 'City already in favorites' });
-
-        user.favoriteCities.push(city);
+        }
+        favoriteCitiesSet.add(city);
+        user.favoriteCities = Array.from(favoriteCitiesSet);
         await user.save();
         return res.status(200).json({ message: `${city} added to favorites` });
     }
