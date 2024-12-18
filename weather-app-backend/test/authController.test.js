@@ -181,6 +181,58 @@ describe('registerUser', () => {
             message: 'Password must be at least 6 characters long.'
         });
     });
+    
+    it('should return 400 for missing email', async () => {
+        const validationError = {
+            name: 'ValidationError',
+            errors: {
+                email: { message: 'Email is required.' }
+            }
+        };
+        User.findOne.mockResolvedValue(null);
+        User.create = jest.fn().mockRejectedValue(validationError);
+        const req = { body: { username: 'avi', password: '@Aa12345', email: '' } };
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
+        await registerUser(req, res);
+        expect(User.create).toHaveBeenCalledWith({
+            username: 'avi',
+            password: '@Aa12345',
+            email: ''
+        });
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+            message: 'Email is required.'
+        });
+    });
+
+    it('should return 400 for missing city', async () => {
+        const validationError = {
+            name: 'ValidationError',
+            errors: {
+                city: { message: 'City is required.' }
+            }
+        };
+        User.findOne.mockResolvedValue(null);
+        User.create = jest.fn().mockRejectedValue(validationError);
+        const req = { body: { username: 'avi', password: '@Aa12345', city: '' } };
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
+        await registerUser(req, res);
+        expect(User.create).toHaveBeenCalledWith({
+            username: 'avi',
+            password: '@Aa12345',
+            city: ''
+        });
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+            message: 'City is required.'
+        });
+    });
 
     it('should return 500 if a server error occurs', async () => {
         User.findOne.mockRejectedValue(new Error('Database error'));

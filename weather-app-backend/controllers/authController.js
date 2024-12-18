@@ -54,7 +54,6 @@ async function registerUser(req, res) {
         });
     }
     catch (error) {
-        console.error("Error in registerUser:", error);
         if (error.name === 'ValidationError') {
             const nameError = error.errors?.username;
             const passwordError = error.errors?.password;
