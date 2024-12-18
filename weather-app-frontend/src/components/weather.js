@@ -6,11 +6,26 @@ import { getWeatherByCity, addCityToFavorites } from '../services/weatherService
 import { useNavigate } from 'react-router-dom';
 import './weather.css';
 
+import sunnyImage from '../assets/sunny.jpg';
+import rainyImage from '../assets/rainy.jpg';
+import cloudyImage from '../assets/cloudy.jpg';
+import snowyImage from '../assets/snowy.jpg';
+import stormyImage from '../assets/stormy.jpg';
+
 export default function Weather() {
     const [city, setCity] = useState('');
     const [weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
+    const [backgroundImage, setBackgroundImage] = useState('');
     const navigate = useNavigate();
+
+    const weatherToImage = (description) => {
+        if (description.includes('rain')) return rainyImage;
+        if (description.includes('cloud')) return cloudyImage;
+        if (description.includes('snow')) return snowyImage;
+        if (description.includes('storm')) return stormyImage;
+        return sunnyImage;
+    };
 
     const fetchWeather = async (cityToFetch) => {
         try {
@@ -18,6 +33,7 @@ export default function Weather() {
             setError(null);
             const data = await getWeatherByCity(cityToFetch);
             setWeather(data);
+            setBackgroundImage(weatherToImage(data.weather[0].description.toLowerCase()));
         } catch (err) {
             setError(err.message);
         }
@@ -62,11 +78,17 @@ export default function Weather() {
     }
 
     useEffect(() => {
-        fetchWeather('ירושלים');
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.city) {
+            fetchWeather(user.city);
+        } else {
+            fetchWeather('Jerusalem');
+        }
     }, []);
 
+
     return (
-        <div className="weather-container">
+        <div className="weather-container" style={{ backgroundImage: `url(${backgroundImage})` }}>
             <Box className="weather-box" component="form" noValidate autoComplete="off">
                 <h2 className="weather-title">Weather Search</h2>
                 <TextField

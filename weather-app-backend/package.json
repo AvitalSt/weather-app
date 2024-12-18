@@ -20,7 +20,9 @@
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb-memory-server": "^10.1.2",
-    "mongoose": "^8.6.2"
+    "mongoose": "^8.6.2",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.16"
   },
   "devDependencies": {
     "jest": "^29.7.0"

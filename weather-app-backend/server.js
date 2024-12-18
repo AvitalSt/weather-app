@@ -1,15 +1,15 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors'); 
+const cors = require('cors');
+const cron = require('node-cron');
 
-const app = express();
+const { sendDailyWeatherEmails } = require('./controllers/weatherController');
+const weatherRouter = require('./routes/weatherRouter')
+const authRouter = require('./routes/authRoutes');
 
 const PORT = process.env.PORT;
 const DB_URI = process.env.DB_URI;
-
-const weatherRouter=require('./routes/weatherRouter')
-const authRouter=require('./routes/authRoutes');
 
 mongoose.connect(DB_URI, {
 }).then(() => {
@@ -18,10 +18,18 @@ mongoose.connect(DB_URI, {
     console.error('Error connecting to MongoDB:', err.message);
 });
 
+cron.schedule('39 11 * * *', () => {
+    console.log('Automatic email sending...');
+    sendDailyWeatherEmails();
+});
+
+const app = express();
+
 app.use(cors());
 app.use(express.json());
-app.use('/weather',weatherRouter)
-app.use('/',authRouter)
+
+app.use('/weather', weatherRouter)
+app.use('/', authRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
