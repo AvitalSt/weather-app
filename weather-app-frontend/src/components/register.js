@@ -44,6 +44,10 @@ export default function Register() {
         }
     };
 
+    const handleLogin = () => {
+        navigate('/login');
+    };
+
     return (
         <div className="auth-container">
             <Box
@@ -97,6 +101,8 @@ export default function Register() {
                 />
                 {error && <div className="error-message">{error}</div>}
                 <Button variant="contained" fullWidth className="auth-button" onClick={handleSubmit}>Register</Button>
+                <Button variant="outlined" fullWidth className="auth-button-back" onClick={handleLogin}>Back to Login</Button>
+
             </Box>
             <HomeButton />
         </div>

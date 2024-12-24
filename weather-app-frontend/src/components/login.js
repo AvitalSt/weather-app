@@ -62,7 +62,7 @@ export default function Login() {
                 />
                 {error && <div className="error-message">{error}</div>}
                 <Button variant="contained" fullWidth className="auth-button" onClick={handleSubmit}>Login</Button>
-                <Button variant="outlined" fullWidth className="auth-button" onClick={handleRegister}>Register</Button>
+                <Button variant="outlined" fullWidth className="auth-button-back" onClick={handleRegister}>Register</Button>
             </Box>
             <HomeButton />
         </div>

@@ -59,3 +59,20 @@
     border: 2px solid #2196f3;
     width: 100%;
 }
+
+.auth-button-back {
+    width: 100%; /* הכפתור יתפוס את כל רוחב המיכל */
+    background-color: white; /* צבע רקע לבן */
+    color: #1976d2; /* צבע טקסט תכלת */
+    font-size: 16px; /* גודל טקסט נוח */
+    padding: 10px 15px; /* מרווח פנימי */
+    border: 2px solid #1976d2; /* מסגרת תכלת */
+    border-radius: 5px; /* פינות מעוגלות קלות */
+    cursor: pointer; /* סמן של יד */
+    transition: background-color 0.3s, color 0.3s; /* מעבר חלק */
+}
+
+.auth-button-back:hover {
+    background-color: #1976d2; /* צבע רקע תכלת */
+    color: white; /* טקסט בצבע לבן */
+}
