@@ -16,22 +16,11 @@ export default function Register() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const checkCityExists = async (city) => {
-        try {
-            await getWeatherByCity(city);
-            return true;
-        } catch (err) {
-            setError('The city was not found. Please check the city name and try again.');
-            return false;
-        }
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
-        const cityExists = await checkCityExists(city);
-        if (!cityExists) return;
         try {
+            await getWeatherByCity(city);
             const data = await register({ username, password, email, city });
             localStorage.setItem('token', data.token);
             const user = { city };
@@ -40,7 +29,12 @@ export default function Register() {
             alert('Register successful!');
             navigate('/')
         } catch (error) {
-            setError(error.response.data.message);
+            if (error.message === 'City not found') {
+                setError('The city was not found. Please check the city name and try again.');
+            }
+            else {
+                setError(error.response.data.message);
+            }
         }
     };
 
